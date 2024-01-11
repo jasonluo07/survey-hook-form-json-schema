@@ -65,9 +65,9 @@ const HookForm = () => {
       <FormControl isInvalid={!!errors.gender}>
         <FormLabel htmlFor="gender">Gender</FormLabel>
         <Select placeholder="Select" {...register('gender')}>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
+          {Object.values(GenderEnum).map(gender => (
+            <option key={gender}>{gender}</option>
+          ))}
         </Select>
         <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
       </FormControl>
