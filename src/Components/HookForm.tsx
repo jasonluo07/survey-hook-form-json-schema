@@ -33,7 +33,7 @@ const HookForm = () => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         resolve();
-      }, 3000);
+      }, 1000);
     });
   };
 
