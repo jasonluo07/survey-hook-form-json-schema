@@ -1,7 +1,13 @@
-import { Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
+import { Button, FormControl, FormErrorMessage, FormLabel, Input, Select } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+
+enum GenderEnum {
+  male = 'Male',
+  female = 'Female',
+  other = 'Other',
+}
 
 const formInputsSchema = yup
   .object({
@@ -14,6 +20,11 @@ const formInputsSchema = yup
       .min(18, 'Age must be at least 18')
       .max(99, 'Age must be less than 99')
       .required('Age is required.'),
+    gender: yup
+      .mixed<GenderEnum>()
+      .oneOf(Object.values(GenderEnum))
+      .transform(value => (value === '' ? undefined : value))
+      .required('Gender is required.'),
   })
   .required();
 
@@ -49,6 +60,16 @@ const HookForm = () => {
         <FormLabel htmlFor="age">Age</FormLabel>
         <Input id="age" placeholder="age" {...register('age')} />
         <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={!!errors.gender}>
+        <FormLabel htmlFor="gender">Gender</FormLabel>
+        <Select placeholder="Select" {...register('gender')}>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </Select>
+        <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
       </FormControl>
 
       <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
