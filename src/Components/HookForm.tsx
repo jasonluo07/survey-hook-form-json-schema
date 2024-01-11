@@ -8,6 +8,7 @@ const schema = yup
     name: yup.string().required('Name is required.'),
     age: yup
       .number()
+      .transform(value => (isNaN(value) ? undefined : value)) // convert empty string to undefined
       .positive()
       .integer()
       .min(18, 'Age must be at least 18')
