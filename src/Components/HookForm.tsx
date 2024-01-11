@@ -1,5 +1,20 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+
+const schema = yup
+  .object({
+    name: yup.string().required('Name is required.'),
+    age: yup
+      .number()
+      .positive()
+      .integer()
+      .min(18, 'Age must be at least 18')
+      .max(99, 'Age must be less than 99')
+      .required('Age is required.'),
+  })
+  .required();
 
 type IFormInputs = {
   name: string;
@@ -11,7 +26,9 @@ const HookForm = () => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<IFormInputs>();
+  } = useForm<IFormInputs>({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit: SubmitHandler<IFormInputs> = values => {
     return new Promise<void>(resolve => {
@@ -26,30 +43,13 @@ const HookForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={!!errors.name}>
         <FormLabel htmlFor="name">Name</FormLabel>
-        <Input
-          type="text"
-          id="name"
-          placeholder="name"
-          {...register('name', {
-            required: 'This is required',
-            minLength: { value: 4, message: 'Minimum length should be 4' },
-          })}
-        />
+        <Input type="text" id="name" placeholder="name" {...register('name')} />
         <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
       </FormControl>
 
       <FormControl isInvalid={!!errors.age}>
         <FormLabel htmlFor="age">Age</FormLabel>
-        <Input
-          type="number"
-          id="age"
-          placeholder="age"
-          {...register('age', {
-            required: 'This is required',
-            min: { value: 18, message: 'Minimum age is 18' },
-            max: { value: 99, message: 'Maximum age is 99' },
-          })}
-        />
+        <Input type="number" id="age" placeholder="age" {...register('age')} />
         <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
       </FormControl>
 
