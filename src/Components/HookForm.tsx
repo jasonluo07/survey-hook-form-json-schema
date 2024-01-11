@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-const schema = yup
+const formInputsSchema = yup
   .object({
     name: yup.string().required('Name is required.'),
     age: yup
@@ -17,21 +17,18 @@ const schema = yup
   })
   .required();
 
-interface IFormInputs {
-  name: string;
-  age: number;
-}
+type FormInputs = yup.InferType<typeof formInputsSchema>;
 
 const HookForm = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<IFormInputs>({
-    resolver: yupResolver(schema),
+  } = useForm<FormInputs>({
+    resolver: yupResolver(formInputsSchema),
   });
 
-  const onSubmit: SubmitHandler<IFormInputs> = values => {
+  const onSubmit: SubmitHandler<FormInputs> = values => {
     return new Promise<void>(resolve => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
