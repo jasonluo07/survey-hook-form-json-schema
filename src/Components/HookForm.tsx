@@ -3,6 +3,7 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 
 type IFormInputs = {
   name: string;
+  age: number;
 };
 
 const HookForm = () => {
@@ -24,8 +25,9 @@ const HookForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor="name">First name</FormLabel>
+        <FormLabel htmlFor="name">Name</FormLabel>
         <Input
+          type="text"
           id="name"
           placeholder="name"
           {...register('name', {
@@ -35,6 +37,22 @@ const HookForm = () => {
         />
         <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
       </FormControl>
+
+      <FormControl isInvalid={!!errors.age}>
+        <FormLabel htmlFor="age">Age</FormLabel>
+        <Input
+          type="number"
+          id="age"
+          placeholder="age"
+          {...register('age', {
+            required: 'This is required',
+            min: { value: 18, message: 'Minimum age is 18' },
+            max: { value: 99, message: 'Maximum age is 99' },
+          })}
+        />
+        <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
+      </FormControl>
+
       <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
         Submit
       </Button>
