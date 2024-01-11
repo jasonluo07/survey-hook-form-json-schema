@@ -44,13 +44,13 @@ const HookForm = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={!!errors.name}>
         <FormLabel htmlFor="name">Name</FormLabel>
-        <Input type="text" id="name" placeholder="name" {...register('name')} />
+        <Input id="name" placeholder="name" {...register('name')} />
         <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
       </FormControl>
 
       <FormControl isInvalid={!!errors.age}>
         <FormLabel htmlFor="age">Age</FormLabel>
-        <Input type="number" id="age" placeholder="age" {...register('age')} />
+        <Input id="age" placeholder="age" {...register('age')} />
         <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
       </FormControl>
 
