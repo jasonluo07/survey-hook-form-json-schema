@@ -1,4 +1,14 @@
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Select } from '@chakra-ui/react';
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+} from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -25,6 +35,7 @@ const formInputsSchema = yup
       .oneOf(Object.values(GenderEnum))
       .transform(value => (value === '' ? undefined : value)) // convert empty string to undefined
       .required('Gender is required.'),
+    isDeveloper: yup.boolean().required('This field is required.'),
   })
   .required();
 
@@ -70,6 +81,21 @@ const HookForm = () => {
           ))}
         </Select>
         <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={!!errors.isDeveloper}>
+        <FormLabel htmlFor="isDeveloper">Are you a developer?</FormLabel>
+        <RadioGroup defaultValue="false">
+          <Stack direction="row">
+            <Radio {...register('isDeveloper')} value="true">
+              Yes
+            </Radio>
+            <Radio {...register('isDeveloper')} value="false">
+              No
+            </Radio>
+          </Stack>
+        </RadioGroup>
+        <FormErrorMessage>{errors.isDeveloper && errors.isDeveloper.message}</FormErrorMessage>
       </FormControl>
 
       <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
