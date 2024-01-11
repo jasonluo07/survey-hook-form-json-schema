@@ -1,15 +1,19 @@
 import { Button, FormControl, FormErrorMessage, FormLabel, Input } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { type SubmitHandler, useForm } from 'react-hook-form';
+
+type IFormInputs = {
+  name: string;
+};
 
 const HookForm = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm();
+  } = useForm<IFormInputs>();
 
-  const onSubmit = values => {
-    return new Promise(resolve => {
+  const onSubmit: SubmitHandler<IFormInputs> = values => {
+    return new Promise<void>(resolve => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
         resolve();
@@ -19,7 +23,7 @@ const HookForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.name}>
+      <FormControl isInvalid={!!errors.name}>
         <FormLabel htmlFor="name">First name</FormLabel>
         <Input
           id="name"
