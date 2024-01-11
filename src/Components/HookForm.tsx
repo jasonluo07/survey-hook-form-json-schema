@@ -17,10 +17,10 @@ const schema = yup
   })
   .required();
 
-type IFormInputs = {
+interface IFormInputs {
   name: string;
   age: number;
-};
+}
 
 const HookForm = () => {
   const {
