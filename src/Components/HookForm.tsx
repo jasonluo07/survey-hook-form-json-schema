@@ -36,7 +36,7 @@ const formInputsSchema = yup
       .transform(value => (value === '' ? undefined : value)) // convert empty string to undefined
       .required('Gender is required.'),
     email: yup.string().email('Invalid email address.').required('Email is required.'),
-    isDeveloper: yup.boolean().required('This field is required.'),
+    isDeveloper: yup.boolean().required('Please select one.'),
   })
   .required();
 
@@ -92,7 +92,7 @@ const HookForm = () => {
 
       <FormControl isInvalid={!!errors.isDeveloper}>
         <FormLabel htmlFor="isDeveloper">Are you a developer?</FormLabel>
-        <RadioGroup defaultValue="false">
+        <RadioGroup>
           <Stack direction="row">
             <Radio {...register('isDeveloper')} value="true">
               Yes
