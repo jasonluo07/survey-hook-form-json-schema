@@ -21,7 +21,7 @@ enum GenderEnum {
 
 const formInputsSchema = yup
   .object({
-    name: yup.string().required('Name is required.'),
+    firstName: yup.string().required('First Name is required.'),
     age: yup
       .number()
       .positive()
@@ -62,10 +62,10 @@ const HookForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={!!errors.name}>
-        <FormLabel htmlFor="name">Name</FormLabel>
-        <Input id="name" placeholder="name" {...register('name')} />
-        <FormErrorMessage>{errors.name && errors.name.message}</FormErrorMessage>
+      <FormControl isInvalid={!!errors.firstName}>
+        <FormLabel htmlFor="firstName">First Name</FormLabel>
+        <Input id="firstName" placeholder="First Name" {...register('firstName')} />
+        <FormErrorMessage>{errors.firstName && errors.firstName.message}</FormErrorMessage>
       </FormControl>
 
       <FormControl isInvalid={!!errors.age}>
