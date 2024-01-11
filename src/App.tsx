@@ -1,7 +1,9 @@
+import HookForm from '@/Components/HookForm';
+
 const App = () => {
   return (
     <>
-      
+      <HookForm />
     </>
   );
 };
