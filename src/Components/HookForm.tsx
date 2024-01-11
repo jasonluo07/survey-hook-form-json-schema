@@ -35,6 +35,7 @@ const formInputsSchema = yup
       .oneOf(Object.values(GenderEnum))
       .transform(value => (value === '' ? undefined : value)) // convert empty string to undefined
       .required('Gender is required.'),
+    email: yup.string().email('Invalid email address.').required('Email is required.'),
     isDeveloper: yup.boolean().required('This field is required.'),
   })
   .required();
@@ -81,6 +82,12 @@ const HookForm = () => {
           ))}
         </Select>
         <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={!!errors.email}>
+        <FormLabel htmlFor="email">Email</FormLabel>
+        <Input id="email" placeholder="email" {...register('email')} />
+        <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
       </FormControl>
 
       <FormControl isInvalid={!!errors.isDeveloper}>
