@@ -14,16 +14,16 @@ const formInputsSchema = yup
     name: yup.string().required('Name is required.'),
     age: yup
       .number()
-      .transform(value => (isNaN(value) ? undefined : value)) // convert empty string to undefined
       .positive()
       .integer()
       .min(18, 'Age must be at least 18')
       .max(99, 'Age must be less than 99')
+      .transform(value => (isNaN(value) ? undefined : value)) // convert empty string to undefined
       .required('Age is required.'),
     gender: yup
       .mixed<GenderEnum>()
       .oneOf(Object.values(GenderEnum))
-      .transform(value => (value === '' ? undefined : value))
+      .transform(value => (value === '' ? undefined : value)) // convert empty string to undefined
       .required('Gender is required.'),
   })
   .required();
