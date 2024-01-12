@@ -4,6 +4,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -69,7 +70,13 @@ const HookForm = () => {
   };
 
   return (
-    <Box w={600} p={4} m="20px auto" bg="gray.100" borderRadius="md">
+    <Box w={600} px={8} py={4} m="20px auto" bg="gray.100" borderRadius="md">
+      <Heading as="h1" size="xl" textAlign="center" mb={4}>
+        Chakra Hook Form
+      </Heading>
+      <Box as="p" textAlign="center" mb={4}>
+        Chakra UI + React Hook Form + Yup +TypeScript + JSON Schema
+      </Box>
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">First Name</FormLabel>
