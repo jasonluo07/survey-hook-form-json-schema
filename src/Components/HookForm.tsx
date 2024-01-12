@@ -5,6 +5,11 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Radio,
   RadioGroup,
   Select,
@@ -27,7 +32,7 @@ const formInputsSchema = yup
     age: yup
       .number()
       .positive()
-      .integer()
+      .integer('Age must be an integer.')
       .min(18, 'Age must be at least 18')
       .max(99, 'Age must be less than 99')
       .transform(value => (isNaN(value) ? undefined : value)) // convert empty string to undefined
@@ -54,6 +59,7 @@ const HookForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = values => {
+    console.log('values', values);
     return new Promise<void>(resolve => {
       setTimeout(() => {
         alert(JSON.stringify(values, null, 2));
@@ -79,7 +85,13 @@ const HookForm = () => {
 
         <FormControl isInvalid={!!errors.age}>
           <FormLabel htmlFor="age">Age</FormLabel>
-          <Input id="age" placeholder="age" {...register('age')} />
+          <NumberInput min={18} max={99}>
+            <NumberInputField {...register('age')} />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
           <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
         </FormControl>
 
