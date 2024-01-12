@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   FormControl,
   FormErrorMessage,
@@ -62,60 +63,62 @@ const HookForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={!!errors.firstName}>
-        <FormLabel htmlFor="firstName">First Name</FormLabel>
-        <Input id="firstName" placeholder="First Name" {...register('firstName')} />
-        <FormErrorMessage>{errors.firstName && errors.firstName.message}</FormErrorMessage>
-      </FormControl>
+    <Box w={600} p={4} m="20px auto" bg="gray.100" borderRadius="md">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl isInvalid={!!errors.firstName}>
+          <FormLabel htmlFor="firstName">First Name</FormLabel>
+          <Input id="firstName" placeholder="First Name" {...register('firstName')} />
+          <FormErrorMessage>{errors.firstName && errors.firstName.message}</FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={!!errors.lastName}>
-        <FormLabel htmlFor="lastName">Last Name</FormLabel>
-        <Input id="lastName" placeholder="Last Name" {...register('lastName')} />
-        <FormErrorMessage>{errors.lastName && errors.lastName.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl isInvalid={!!errors.lastName}>
+          <FormLabel htmlFor="lastName">Last Name</FormLabel>
+          <Input id="lastName" placeholder="Last Name" {...register('lastName')} />
+          <FormErrorMessage>{errors.lastName && errors.lastName.message}</FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={!!errors.age}>
-        <FormLabel htmlFor="age">Age</FormLabel>
-        <Input id="age" placeholder="age" {...register('age')} />
-        <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl isInvalid={!!errors.age}>
+          <FormLabel htmlFor="age">Age</FormLabel>
+          <Input id="age" placeholder="age" {...register('age')} />
+          <FormErrorMessage>{errors.age && errors.age.message}</FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={!!errors.gender}>
-        <FormLabel htmlFor="gender">Gender</FormLabel>
-        <Select placeholder="Select" {...register('gender')}>
-          {Object.values(GenderEnum).map(gender => (
-            <option key={gender}>{gender}</option>
-          ))}
-        </Select>
-        <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl isInvalid={!!errors.gender}>
+          <FormLabel htmlFor="gender">Gender</FormLabel>
+          <Select placeholder="Select" {...register('gender')}>
+            {Object.values(GenderEnum).map(gender => (
+              <option key={gender}>{gender}</option>
+            ))}
+          </Select>
+          <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={!!errors.email}>
-        <FormLabel htmlFor="email">Email</FormLabel>
-        <Input id="email" placeholder="email" {...register('email')} />
-        <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl isInvalid={!!errors.email}>
+          <FormLabel htmlFor="email">Email</FormLabel>
+          <Input id="email" placeholder="email" {...register('email')} />
+          <FormErrorMessage>{errors.email && errors.email.message}</FormErrorMessage>
+        </FormControl>
 
-      <FormControl isInvalid={!!errors.isDeveloper}>
-        <FormLabel htmlFor="isDeveloper">Are you a developer?</FormLabel>
-        <RadioGroup>
-          <Stack direction="row">
-            <Radio {...register('isDeveloper')} value="true">
-              Yes
-            </Radio>
-            <Radio {...register('isDeveloper')} value="false">
-              No
-            </Radio>
-          </Stack>
-        </RadioGroup>
-        <FormErrorMessage>{errors.isDeveloper && errors.isDeveloper.message}</FormErrorMessage>
-      </FormControl>
+        <FormControl isInvalid={!!errors.isDeveloper}>
+          <FormLabel htmlFor="isDeveloper">Are you a developer?</FormLabel>
+          <RadioGroup>
+            <Stack direction="row">
+              <Radio {...register('isDeveloper')} value="true">
+                Yes
+              </Radio>
+              <Radio {...register('isDeveloper')} value="false">
+                No
+              </Radio>
+            </Stack>
+          </RadioGroup>
+          <FormErrorMessage>{errors.isDeveloper && errors.isDeveloper.message}</FormErrorMessage>
+        </FormControl>
 
-      <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
-        Submit
-      </Button>
-    </form>
+        <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
+          Submit
+        </Button>
+      </form>
+    </Box>
   );
 };
 
