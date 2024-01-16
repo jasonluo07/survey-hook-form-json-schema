@@ -53,11 +53,19 @@
     }
     ```
 
+## Target
 
-## 討論
+<!-- - React JSON Schema 用來產生表單。 -->
+- JSON Schema 轉換成 Chakra UI + React Hook Form + Yup 的表單
 
-- React JSON Schema Form 是最完整的，且有支援 Chakra UI，但還在觀察支援的程度。
+## Discussion
+
+- React JSON Schema Form 是最完整的，且有支援 Chakra UI，但還在觀察支援的程度，像是驗證比較複雜的欄位。
+  - start 數：13.3k
+  - @rjsf/core 週下載數：219,820
 - JSON Schema 和 Yup 可能並不能完全對應，例如 `type: 'string'` 和 `type: 'number'`，Yup 只有 `string()` 和 `number()`，沒有 `integer()`。
   - 參考套件 schema-to-yup：從 JSON Schema 創建 Yup 驗證
     - star 數：273
     - 週下載數：29,382
+- 能否加速開發速度？多轉換一層，對於維護性有影響。
+- JSON Schema 轉成 Yup 再轉換成 Form
