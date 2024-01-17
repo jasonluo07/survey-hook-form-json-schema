@@ -1,11 +1,10 @@
-import HookForm from '@/Components/HookForm';
-import { Center } from '@chakra-ui/react';
+import JsonSchemaForm from '@/Components/JsonSchemaForm';
 
 const App = () => {
   return (
-    <Center h="100vh">
-      <HookForm />
-    </Center>
+    <>
+      <JsonSchemaForm />
+    </>
   );
 };
 
