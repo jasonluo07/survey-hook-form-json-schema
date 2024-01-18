@@ -21,15 +21,15 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 enum GenderEnum {
-  male = 'Male',
-  female = 'Female',
-  other = 'Other',
+  Male = 'male',
+  Female = 'female',
+  Other = 'other',
 }
 
-const formInputsSchema = yup
+const formDataSchema = yup
   .object({
     firstName: yup.string().required('First Name is required.'),
-    lastName: yup.string().notRequired(),
+    lastName: yup.string().nullable(),
     age: yup
       .number()
       .positive()
@@ -48,18 +48,18 @@ const formInputsSchema = yup
   })
   .required();
 
-type FormInputs = yup.InferType<typeof formInputsSchema>;
+type FormData = yup.InferType<typeof formDataSchema>;
 
 const HookForm = () => {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
-  } = useForm<FormInputs>({
-    resolver: yupResolver(formInputsSchema),
+  } = useForm<FormData>({
+    resolver: yupResolver(formDataSchema),
   });
 
-  const onSubmit: SubmitHandler<FormInputs> = values => {
+  const onSubmit: SubmitHandler<FormData> = values => {
     console.log('values', values);
     return new Promise<void>(resolve => {
       setTimeout(() => {
@@ -105,8 +105,10 @@ const HookForm = () => {
         <FormControl isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gender</FormLabel>
           <Select placeholder="Select" {...register('gender')}>
-            {Object.values(GenderEnum).map(gender => (
-              <option key={gender}>{gender}</option>
+            {Object.values(GenderEnum).map(value => (
+              <option key={value} value={value}>
+                {value.charAt(0).toUpperCase() + value.slice(1)}
+              </option>
             ))}
           </Select>
           <FormErrorMessage>{errors.gender && errors.gender.message}</FormErrorMessage>

@@ -1,9 +1,9 @@
-import JsonSchemaForm from '@/Components/JsonSchemaForm';
+import HookForm from '@/Components/HookForm';
 
 const App = () => {
   return (
     <>
-      <JsonSchemaForm />
+      <HookForm />
     </>
   );
 };
