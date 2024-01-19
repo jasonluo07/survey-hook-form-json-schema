@@ -1,9 +1,9 @@
-import Form from '@/Components/Form';
+import HookForm from '@/Components/HookForm';
 
 const App = () => {
   return (
     <>
-      <Form />
+      <HookForm />
     </>
   );
 };
