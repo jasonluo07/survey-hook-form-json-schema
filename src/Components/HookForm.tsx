@@ -17,7 +17,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { type SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 enum GenderEnum {
@@ -40,7 +40,6 @@ const formDataSchema = yup
       .required('Age is required.'),
     gender: yup
       .mixed<GenderEnum>()
-      .oneOf(Object.values(GenderEnum))
       .transform(value => (value === '' ? undefined : value)) // convert empty string to undefined
       .required('Gender is required.'),
     email: yup.string().email('Invalid email address.').required('Email is required.'),
@@ -59,15 +58,15 @@ const HookForm = () => {
     resolver: yupResolver(formDataSchema),
   });
 
-  const onSubmit: SubmitHandler<FormData> = values => {
-    console.log('values', values);
+  const onSubmit = handleSubmit(data => {
+    console.log('data', data);
     return new Promise<void>(resolve => {
       setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(data, null, 2));
         resolve();
       }, 1000);
     });
-  };
+  });
 
   return (
     <Box w={600} px={8} py={4} m="20px auto" bg="gray.100" borderRadius="md">
@@ -77,23 +76,23 @@ const HookForm = () => {
       <Box as="p" textAlign="center" mb={4}>
         Chakra UI + React Hook Form + Yup +TypeScript + JSON Schema
       </Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <FormControl isInvalid={!!errors.firstName}>
           <FormLabel htmlFor="firstName">First Name</FormLabel>
-          <Input id="firstName" placeholder="First Name" {...register('firstName')} />
+          <Input id="firstName" placeholder="Enter Your First Name" {...register('firstName')} />
           <FormErrorMessage>{errors.firstName && errors.firstName.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={!!errors.lastName}>
           <FormLabel htmlFor="lastName">Last Name</FormLabel>
-          <Input id="lastName" placeholder="Last Name" {...register('lastName')} />
+          <Input id="lastName" placeholder="Enter Your Last Name" {...register('lastName')} />
           <FormErrorMessage>{errors.lastName && errors.lastName.message}</FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={!!errors.age}>
           <FormLabel htmlFor="age">Age</FormLabel>
           <NumberInput min={18} max={99}>
-            <NumberInputField {...register('age')} />
+            <NumberInputField id="age" placeholder="Enter Your Age" {...register('age')} />
             <NumberInputStepper>
               <NumberIncrementStepper />
               <NumberDecrementStepper />
@@ -104,7 +103,7 @@ const HookForm = () => {
 
         <FormControl isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gender</FormLabel>
-          <Select placeholder="Select" {...register('gender')}>
+          <Select id="gender" placeholder="Select" {...register('gender')}>
             {Object.values(GenderEnum).map(value => (
               <option key={value} value={value}>
                 {value.charAt(0).toUpperCase() + value.slice(1)}
